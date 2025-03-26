@@ -1,9 +1,15 @@
 
-import { Drawer as DrawerPrimitive } from "@/components/ui/drawer";
+import React from "react";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerOverlay,
+  DrawerPortal,
+} from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import React from "react";
 
 interface ModernDrawerProps {
   isOpen: boolean;
@@ -35,15 +41,15 @@ const ModernDrawer = ({
   };
 
   return (
-    <DrawerPrimitive
+    <Drawer
       open={isOpen}
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
     >
-      <DrawerPrimitive.Portal>
-        <DrawerPrimitive.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-        <DrawerPrimitive.Content
+      <DrawerPortal>
+        <DrawerOverlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+        <DrawerContent
           className={cn(
             "fixed z-50 h-full bg-background shadow-lg duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
             side === "right" 
@@ -57,23 +63,25 @@ const ModernDrawer = ({
               {title && (
                 <h2 className="text-lg font-semibold">{title}</h2>
               )}
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="ml-auto" 
-                onClick={onClose}
-                aria-label="Close drawer"
-              >
-                <X className="h-5 w-5" />
-              </Button>
+              <DrawerClose asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="ml-auto" 
+                  onClick={onClose}
+                  aria-label="Close drawer"
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </DrawerClose>
             </div>
             <div className="flex-1 overflow-y-auto pr-2">
               {children}
             </div>
           </div>
-        </DrawerPrimitive.Content>
-      </DrawerPrimitive.Portal>
-    </DrawerPrimitive>
+        </DrawerContent>
+      </DrawerPortal>
+    </Drawer>
   );
 };
 
