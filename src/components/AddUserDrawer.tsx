@@ -1,9 +1,9 @@
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { UserPlus } from "lucide-react";
 import AddUserForm from "./AddUserForm";
 import { useState } from "react";
+import ModernDrawer from "./ModernDrawer";
 
 interface AddUserDrawerProps {
   onUserAdded?: (userData: any) => void;
@@ -12,8 +12,8 @@ interface AddUserDrawerProps {
 const AddUserDrawer = ({ onUserAdded }: AddUserDrawerProps) => {
   const [open, setOpen] = useState(false);
 
-  const handleOnOpenChange = (open: boolean) => {
-    setOpen(open);
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const handleSuccess = (userData: any) => {
@@ -23,20 +23,28 @@ const AddUserDrawer = ({ onUserAdded }: AddUserDrawerProps) => {
   };
 
   return (
-    <Sheet open={open} onOpenChange={handleOnOpenChange}>
-      <SheetTrigger asChild>
-        <Button className="bg-custom-gradient">
-          <UserPlus className="mr-2 h-4 w-4" />
-          Add User
-        </Button>
-      </SheetTrigger>
-      <SheetContent className="sm:max-w-md overflow-y-auto">
+    <>
+      <Button 
+        className="bg-custom-gradient hover:opacity-90 transition-opacity"
+        onClick={() => setOpen(true)}
+      >
+        <UserPlus className="mr-2 h-4 w-4" />
+        Add User
+      </Button>
+
+      <ModernDrawer 
+        isOpen={open} 
+        onClose={handleClose}
+        title="Add New User"
+        size="md"
+        side="right"
+      >
         <AddUserForm 
-          onClose={() => setOpen(false)} 
-          onSuccess={handleSuccess}
+          onClose={handleClose} 
+          onSuccess={handleSuccess} 
         />
-      </SheetContent>
-    </Sheet>
+      </ModernDrawer>
+    </>
   );
 };
 
