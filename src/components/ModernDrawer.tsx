@@ -31,12 +31,12 @@ const ModernDrawer = ({
   // Determine width based on size
   const getWidth = () => {
     switch (size) {
-      case "sm": return "max-w-sm";
-      case "md": return "max-w-md";
-      case "lg": return "max-w-lg";
-      case "xl": return "max-w-xl";
-      case "full": return "max-w-full";
-      default: return "max-w-md";
+      case "sm": return "max-w-sm w-full";
+      case "md": return "max-w-md w-full";
+      case "lg": return "max-w-lg w-full";
+      case "xl": return "max-w-xl w-full";
+      case "full": return "w-full";
+      default: return "max-w-md w-full";
     }
   };
 
@@ -55,8 +55,8 @@ const ModernDrawer = ({
           className={cn(
             "fixed z-50 h-full bg-background shadow-lg duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
             side === "right" 
-              ? "right-0 inset-y-0 data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right border-l" 
-              : "left-0 inset-y-0 data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left border-r",
+              ? "top-0 right-0 bottom-0 data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right border-l" 
+              : "top-0 left-0 bottom-0 data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left border-r",
             getWidth()
           )}
         >
