@@ -13,59 +13,62 @@ import Users from "./pages/Users";
 import Subscriptions from "./pages/Subscriptions";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import React from "react";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            
-            {/* Protected routes */}
-            <Route path="/dashboard" element={
-              <AuthGuard>
-                <Layout>
-                  <Dashboard />
-                </Layout>
-              </AuthGuard>
-            } />
-            
-            <Route path="/users" element={
-              <AuthGuard>
-                <Layout>
-                  <Users />
-                </Layout>
-              </AuthGuard>
-            } />
-            
-            <Route path="/subscriptions" element={
-              <AuthGuard>
-                <Layout>
-                  <Subscriptions />
-                </Layout>
-              </AuthGuard>
-            } />
-            
-            <Route path="/settings" element={
-              <AuthGuard>
-                <Layout>
-                  <Settings />
-                </Layout>
-              </AuthGuard>
-            } />
-            
-            {/* 404 route */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              
+              {/* Protected routes */}
+              <Route path="/dashboard" element={
+                <AuthGuard>
+                  <Layout>
+                    <Dashboard />
+                  </Layout>
+                </AuthGuard>
+              } />
+              
+              <Route path="/users" element={
+                <AuthGuard>
+                  <Layout>
+                    <Users />
+                  </Layout>
+                </AuthGuard>
+              } />
+              
+              <Route path="/subscriptions" element={
+                <AuthGuard>
+                  <Layout>
+                    <Subscriptions />
+                  </Layout>
+                </AuthGuard>
+              } />
+              
+              <Route path="/settings" element={
+                <AuthGuard>
+                  <Layout>
+                    <Settings />
+                  </Layout>
+                </AuthGuard>
+              } />
+              
+              {/* 404 route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </React.StrictMode>
 );
 
 export default App;
